@@ -15,6 +15,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Random delay (0-60 min)
+        if: github.event_name == 'schedule'
+        run: |
+          DELAY=$((RANDOM % 3600))
+          echo "随机延迟 ${DELAY} 秒"
+          sleep ${DELAY}
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
